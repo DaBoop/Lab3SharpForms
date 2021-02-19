@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Xml.Serialization;
+using System.ComponentModel.DataAnnotations;
+
 namespace Lab2SharpForms
 {
     public partial class Form1 : Form
@@ -115,7 +117,7 @@ namespace Lab2SharpForms
                         entry.StartDate
                         );
                     }
-                    resultRichTextBox.Text = "Счет успешно загружен:\n";
+                    //resultRichTextBox.Text = "Счет успешно загружен:\n";
                     //    + $"===Владелец===\nФИО: {acc.AccountOwner.FullName}\nНомер паспорта: {acc.AccountOwner.PassportID}\nДата рождения: {acc.AccountOwner.BirthDate.ToString("d")}\n"
                     //    + $"===Счет====\nНомер счета: {acc.ID}\nБаланс: {acc.Balance}\nОнлайн-Банкинг: {acc.OnlineBanking}\nСМС-Уведомления: {acc.SMSNotification}\nДата Создания: {acc.StartDate.ToString("d")}\n";
                     selectedRowIndex = -1;
@@ -178,7 +180,12 @@ namespace Lab2SharpForms
 
             if (e.ColumnIndex == 8)
             {
-                dataGridViewBank.Rows.RemoveAt(e.RowIndex);
+                try
+                {
+                    dataGridViewBank.Rows.RemoveAt(e.RowIndex);
+                }
+                catch (Exception excep) { }
+                accountList.RemoveAt(e.RowIndex);
                 selectedRowIndex = -1;
             }
 
@@ -212,26 +219,59 @@ namespace Lab2SharpForms
         {
             //dataGridViewBank.Rows.Add();
             try
-            { 
-            accountList.Add(new Account(
+            {
+                var own = new Owner(NameTextBox.Text, birthDatePciker.Value, PassportIDTextBox.Text);
+                var acc = new Account(
                         Convert.ToInt32(accountIdTextBox.Text),
                         (int)accountSumNumerical.Value,
                         registrationDatePicker.Value,
                         onlineBankingBox.Enabled,
                         SMSGroupBox.Enabled,
-                        new Owner(NameTextBox.Text, birthDatePciker.Value, PassportIDTextBox.Text),
-                        history));
+                        own,
+                        history); 
 
-            dataGridViewBank.Rows.Add(
-                        NameTextBox.Text,
-                        PassportIDTextBox.Text,
-                        birthDatePciker.Value,
-                        Convert.ToInt32(accountIdTextBox.Text),
-                        (int)accountSumNumerical.Value,
-                        onlineBankingBox.Enabled,
-                        SMSGroupBox.Enabled,
-                         registrationDatePicker.Value
-                        );
+            var results = new List<ValidationResult>();
+            var context = new ValidationContext(own);
+            if (!Validator.TryValidateObject(own, context, results, true))
+                {
+                    foreach (ValidationResult entry in results)
+                    {
+                        resultRichTextBox.Text += entry.ErrorMessage + "\n";
+                    }
+
+                   
+                }
+            else
+                { 
+                    results = new List<ValidationResult>();
+                    context = new ValidationContext(acc);
+                if (!Validator.TryValidateObject(acc, context, results, true))
+                    {
+                        foreach (ValidationResult entry in results)
+                        {
+                            resultRichTextBox.Text += entry.ErrorMessage + "\n";
+                        }
+
+
+                    }
+                else
+                    {
+
+                        accountList.Add(acc);
+
+                        dataGridViewBank.Rows.Add(
+                                    NameTextBox.Text,
+                                    PassportIDTextBox.Text,
+                                    birthDatePciker.Value,
+                                    Convert.ToInt32(accountIdTextBox.Text),
+                                    (int)accountSumNumerical.Value,
+                                    onlineBankingBox.Enabled,
+                                    SMSGroupBox.Enabled,
+                                     registrationDatePicker.Value
+                                    );
+                    }
+                }
+
             }
             catch(Exception excep)
             {
@@ -339,6 +379,8 @@ namespace Lab2SharpForms
 
         public void advancedSearchButton_Result(List<int> indexes)
         {
+            if (indexes!=null)
+                { 
             foreach(DataGridViewRow row in dataGridViewBank.Rows)
             {
                 foreach (DataGridViewCell cell in row.Cells)
@@ -357,12 +399,17 @@ namespace Lab2SharpForms
                     
                 }
             }
+            }
+            else
+            {
+                resultRichTextBox.Text = "Ничего не найдено";   
+            }
             lastActionStatusLabel.Text = "AdvancedSearchButton_Result";
         }
 
         private void sortButton_Click(object sender, EventArgs e)
         {
-            int cellIndex = 0;
+            
             switch (sortDropdownList.Text)
             {
                 case "ФИО": accountList = accountList.OrderBy(x => x.AccountOwner.FullName).ToList(); break;
@@ -389,6 +436,70 @@ namespace Lab2SharpForms
         private void dataGridViewBank_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
         {
             objectCountStatusLabel.Text = dataGridViewBank.Rows.Count.ToString();     
+        }
+
+        private void sortToolStripButton_Click(object sender, EventArgs e)
+        {
+            accountList = accountList.OrderBy(x => x.AccountOwner.FullName).ToList();
+            dataGridViewBank.Rows.Clear();
+            foreach (Account entry in accountList)
+            {
+                dataGridViewBank.Rows.Add(
+                entry.AccountOwner.FullName,
+                entry.AccountOwner.PassportID,
+                entry.AccountOwner.BirthDate,
+                entry.ID,
+                entry.Balance,
+                entry.SMSNotification,
+                entry.OnlineBanking,
+                entry.StartDate
+                );
+            }
+
+            lastActionStatusLabel.Text = "SortToolStripButton_Click";
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void deleteRowToolStripButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                dataGridViewBank.Rows.RemoveAt(selectedRowIndex);
+                accountList.RemoveAt(selectedRowIndex);
+            }
+            catch (Exception excep) { }
+            
+            selectedRowIndex = -1;
+        
+
+        lastActionStatusLabel.Text = "DeleteRowToolStripButton_Click";
+        }
+
+        private void advancedSearchToolStripButton_Click(object sender, EventArgs e)
+        {
+            advancedSearchButton_Click(null, null);
+            lastActionStatusLabel.Text = "AdvancedSearchToolStripButton_Click";
+        }
+
+        private void closeStripButton_Click(object sender, EventArgs e)
+        {
+            toolStrip1.Hide();
+        }
+
+        private void toolStrip1_DragDrop(object sender, DragEventArgs e)
+        {
+            toolStrip1.Dock = DockStyle.None;
+            toolStrip1.Top = e.Y;
+            toolStrip1.Left = e.X;
         }
     }
 

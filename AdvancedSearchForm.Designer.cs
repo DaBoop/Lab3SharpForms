@@ -96,7 +96,7 @@ namespace Lab2SharpForms
             this.searchRegexDropdownList1.FormattingEnabled = true;
             this.searchRegexDropdownList1.Items.AddRange(new object[] {
             "Подстрока",
-            "Количество совпадений",
+            "Диапазон",
             "Индекс вхождения"});
             this.searchRegexDropdownList1.Location = new System.Drawing.Point(418, 12);
             this.searchRegexDropdownList1.Name = "searchRegexDropdownList1";
@@ -182,7 +182,7 @@ namespace Lab2SharpForms
             this.searchRegexDropdownList2.FormattingEnabled = true;
             this.searchRegexDropdownList2.Items.AddRange(new object[] {
             "Подстрока",
-            "Количество совпадений",
+            "Диапазон",
             "Индекс вхождения"});
             this.searchRegexDropdownList2.Location = new System.Drawing.Point(418, 12);
             this.searchRegexDropdownList2.Name = "searchRegexDropdownList2";

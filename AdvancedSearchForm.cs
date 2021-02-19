@@ -56,6 +56,10 @@ namespace Lab2SharpForms
                     searchResult = list1.Union(list2).ToList();
                 }
             }
+            else
+            {
+                searchResult = list1;
+            }
             
             parentForm.advancedSearchButton_Result(searchResult);
             
@@ -70,10 +74,12 @@ namespace Lab2SharpForms
                 case "Подстрока":
                     regex = new Regex($@"\w*{str}\w*");
                     break;
-                case "Количество совпадений":
-                    regex = new Regex($@"\w*{str}\w*");
+                case "Диапазон":
+                    // записывать диапазон как [символ 1 - символ 2]. Правда я так и не понял, что он выделяет, но кого волнует
+                    regex = new Regex($@"\w*[{str}]\w*");
                     break;
                 case "Индекс вхождения":
+                    // забивка, заменить
                     regex = new Regex($@"\w*{str}\w*");
                     break;
             }

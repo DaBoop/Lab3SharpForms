@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,8 +11,13 @@ namespace Lab2SharpForms
     public class Owner
     {
         public Owner() { }
+        [Required]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Недопустимая длина имени")]
         public string FullName { get; set; }
+        [Required]
         public DateTime BirthDate { get; set; }
+        //[Required]
+        [PassportIDValidate("Неправильный номер паспорта")]
         public string PassportID { get; set; }
 
         public Owner(string _FullName, DateTime _BirthDate, string _PassportID) => (FullName, BirthDate, PassportID) = (_FullName, _BirthDate, _PassportID);
@@ -33,9 +39,13 @@ namespace Lab2SharpForms
 
         public OperationData(string operationType, DateTime operationDate, int sum)
         {
-            OperationType = (Operation)Enum.Parse(typeof(Operation), operationType);
-            OperationDate = operationDate;
-            Sum = sum;
+            try
+            {
+                OperationType = (Operation)Enum.Parse(typeof(Operation), operationType);
+                OperationDate = operationDate;
+                Sum = sum;
+            }
+            catch (Exception e) { }
         }
         public OperationData() { }
     }
@@ -60,7 +70,12 @@ namespace Lab2SharpForms
     {
         public History AccountHistory;
         public Account() { }
+        [Required]
+        //[StringLength(50, MinimumLength = 3, ErrorMessage = "Недопустимая длина имени")]
         public Owner AccountOwner { get; set; }
+
+        [Required]
+        [RegularExpression(@"^[1-9]{5}$", ErrorMessage = "Номёр счёта должен содержать 5 цифр")]
         private int id;
         public int ID {
             get => id;
@@ -72,8 +87,10 @@ namespace Lab2SharpForms
 
             }
         }
-
+        [Required]
+        [Range(-999999, 999999, ErrorMessage = "Недопустимый возраст")]
         private int balance;
+
         public int Balance
         {
             get => balance;
@@ -86,14 +103,20 @@ namespace Lab2SharpForms
 
             }
         }
-
+        [Required]
         public DateTime StartDate { get; set; }
-
+        [Required]
         public bool OnlineBanking { get; set; }
-
+        [Required]
         public bool SMSNotification { get; set; }
 
-        public Account(int _ID, int _Balance, DateTime _StartDate, bool _OnlineBanking = false, bool _SMSNotification = false, Owner _AccountOwner = null, History _accountHistory = null) => (ID, Balance, StartDate, OnlineBanking, SMSNotification, AccountOwner, AccountHistory) = (_ID, _Balance, _StartDate, _OnlineBanking, _SMSNotification, _AccountOwner, _accountHistory);
+        public Account(int _ID, int _Balance, DateTime _StartDate, bool _OnlineBanking = false, bool _SMSNotification = false, Owner _AccountOwner = null, History _accountHistory = null)
+        {
+
+          
+
+            (ID, Balance, StartDate, OnlineBanking, SMSNotification, AccountOwner, AccountHistory) = (_ID, _Balance, _StartDate, _OnlineBanking, _SMSNotification, _AccountOwner, _accountHistory);
+        }
     }
 
     public enum Operation

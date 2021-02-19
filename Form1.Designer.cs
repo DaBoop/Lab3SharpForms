@@ -29,6 +29,7 @@ namespace Lab2SharpForms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.NameTextBox = new System.Windows.Forms.TextBox();
             this.PassportIDTextBox = new System.Windows.Forms.TextBox();
             this.accountSumNumerical = new System.Windows.Forms.NumericUpDown();
@@ -90,31 +91,37 @@ namespace Lab2SharpForms
             this.lastActionStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.objectCountStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.sortToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.advancedSearchToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.deleteRowToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.closeStripButton = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.accountSumNumerical)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.operationSum)).BeginInit();
             this.SMSGroupBox.SuspendLayout();
             this.onlineBankingBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBank)).BeginInit();
             this.statusStrip1.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // NameTextBox
             // 
-            this.NameTextBox.Location = new System.Drawing.Point(130, 29);
+            this.NameTextBox.Location = new System.Drawing.Point(131, 47);
             this.NameTextBox.Name = "NameTextBox";
             this.NameTextBox.Size = new System.Drawing.Size(183, 20);
             this.NameTextBox.TabIndex = 0;
             // 
             // PassportIDTextBox
             // 
-            this.PassportIDTextBox.Location = new System.Drawing.Point(130, 64);
+            this.PassportIDTextBox.Location = new System.Drawing.Point(131, 82);
             this.PassportIDTextBox.Name = "PassportIDTextBox";
             this.PassportIDTextBox.Size = new System.Drawing.Size(183, 20);
             this.PassportIDTextBox.TabIndex = 0;
             // 
             // accountSumNumerical
             // 
-            this.accountSumNumerical.Location = new System.Drawing.Point(480, 67);
+            this.accountSumNumerical.Location = new System.Drawing.Point(481, 85);
             this.accountSumNumerical.Maximum = new decimal(new int[] {
             999999,
             0,
@@ -154,7 +161,7 @@ namespace Lab2SharpForms
             // Label1
             // 
             this.Label1.AutoSize = true;
-            this.Label1.Location = new System.Drawing.Point(21, 36);
+            this.Label1.Location = new System.Drawing.Point(22, 54);
             this.Label1.Name = "Label1";
             this.Label1.Size = new System.Drawing.Size(34, 13);
             this.Label1.TabIndex = 4;
@@ -163,7 +170,7 @@ namespace Lab2SharpForms
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(21, 71);
+            this.label2.Location = new System.Drawing.Point(22, 89);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(91, 13);
             this.label2.TabIndex = 4;
@@ -172,7 +179,7 @@ namespace Lab2SharpForms
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(371, 37);
+            this.label4.Location = new System.Drawing.Point(372, 55);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(72, 13);
             this.label4.TabIndex = 4;
@@ -181,7 +188,7 @@ namespace Lab2SharpForms
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(371, 74);
+            this.label5.Location = new System.Drawing.Point(372, 92);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(72, 13);
             this.label5.TabIndex = 4;
@@ -190,7 +197,7 @@ namespace Lab2SharpForms
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(371, 104);
+            this.label6.Location = new System.Drawing.Point(372, 122);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(100, 13);
             this.label6.TabIndex = 4;
@@ -200,7 +207,7 @@ namespace Lab2SharpForms
             // 
             this.onlineBanking.AutoSize = true;
             this.onlineBanking.Enabled = false;
-            this.onlineBanking.Location = new System.Drawing.Point(371, 152);
+            this.onlineBanking.Location = new System.Drawing.Point(372, 170);
             this.onlineBanking.Name = "onlineBanking";
             this.onlineBanking.Size = new System.Drawing.Size(90, 13);
             this.onlineBanking.TabIndex = 4;
@@ -209,7 +216,7 @@ namespace Lab2SharpForms
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(371, 202);
+            this.label8.Location = new System.Drawing.Point(372, 220);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(84, 13);
             this.label8.TabIndex = 4;
@@ -218,7 +225,7 @@ namespace Lab2SharpForms
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(748, 86);
+            this.label9.Location = new System.Drawing.Point(749, 104);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(92, 13);
             this.label9.TabIndex = 4;
@@ -226,7 +233,7 @@ namespace Lab2SharpForms
             // 
             // operationSum
             // 
-            this.operationSum.Location = new System.Drawing.Point(851, 86);
+            this.operationSum.Location = new System.Drawing.Point(852, 104);
             this.operationSum.Maximum = 5000;
             this.operationSum.Name = "operationSum";
             this.operationSum.Size = new System.Drawing.Size(243, 45);
@@ -236,7 +243,7 @@ namespace Lab2SharpForms
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(748, 37);
+            this.label10.Location = new System.Drawing.Point(749, 55);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(77, 13);
             this.label10.TabIndex = 4;
@@ -245,7 +252,7 @@ namespace Lab2SharpForms
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(21, 106);
+            this.label3.Location = new System.Drawing.Point(22, 124);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(86, 13);
             this.label3.TabIndex = 4;
@@ -257,14 +264,14 @@ namespace Lab2SharpForms
             this.operationTypeList.Items.AddRange(new object[] {
             "Deposit",
             "Withdraw"});
-            this.operationTypeList.Location = new System.Drawing.Point(851, 29);
+            this.operationTypeList.Location = new System.Drawing.Point(852, 47);
             this.operationTypeList.Name = "operationTypeList";
             this.operationTypeList.Size = new System.Drawing.Size(243, 21);
             this.operationTypeList.TabIndex = 7;
             // 
             // commitOperationButton
             // 
-            this.commitOperationButton.Location = new System.Drawing.Point(759, 167);
+            this.commitOperationButton.Location = new System.Drawing.Point(760, 185);
             this.commitOperationButton.Name = "commitOperationButton";
             this.commitOperationButton.Size = new System.Drawing.Size(126, 39);
             this.commitOperationButton.TabIndex = 9;
@@ -294,7 +301,7 @@ namespace Lab2SharpForms
             // 
             // accountIdTextBox
             // 
-            this.accountIdTextBox.Location = new System.Drawing.Point(480, 29);
+            this.accountIdTextBox.Location = new System.Drawing.Point(481, 47);
             this.accountIdTextBox.Mask = "00000";
             this.accountIdTextBox.Name = "accountIdTextBox";
             this.accountIdTextBox.Size = new System.Drawing.Size(183, 20);
@@ -304,7 +311,7 @@ namespace Lab2SharpForms
             // 
             this.SMSGroupBox.Controls.Add(this.SMSTrueRadio);
             this.SMSGroupBox.Controls.Add(this.SMSFalseRadio);
-            this.SMSGroupBox.Location = new System.Drawing.Point(480, 93);
+            this.SMSGroupBox.Location = new System.Drawing.Point(481, 111);
             this.SMSGroupBox.Name = "SMSGroupBox";
             this.SMSGroupBox.Size = new System.Drawing.Size(183, 38);
             this.SMSGroupBox.TabIndex = 11;
@@ -314,7 +321,7 @@ namespace Lab2SharpForms
             // 
             this.onlineBankingBox.Controls.Add(this.onlineBankingTrue);
             this.onlineBankingBox.Controls.Add(this.onlineBankingFalse);
-            this.onlineBankingBox.Location = new System.Drawing.Point(480, 141);
+            this.onlineBankingBox.Location = new System.Drawing.Point(481, 159);
             this.onlineBankingBox.Name = "onlineBankingBox";
             this.onlineBankingBox.Size = new System.Drawing.Size(183, 38);
             this.onlineBankingBox.TabIndex = 11;
@@ -345,7 +352,7 @@ namespace Lab2SharpForms
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(860, 118);
+            this.label7.Location = new System.Drawing.Point(861, 136);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(13, 13);
             this.label7.TabIndex = 12;
@@ -363,7 +370,7 @@ namespace Lab2SharpForms
             // operationSumValueLabel
             // 
             this.operationSumValueLabel.AutoSize = true;
-            this.operationSumValueLabel.Location = new System.Drawing.Point(956, 134);
+            this.operationSumValueLabel.Location = new System.Drawing.Point(957, 152);
             this.operationSumValueLabel.Name = "operationSumValueLabel";
             this.operationSumValueLabel.Size = new System.Drawing.Size(0, 13);
             this.operationSumValueLabel.TabIndex = 12;
@@ -393,14 +400,14 @@ namespace Lab2SharpForms
             // 
             // registrationDatePicker
             // 
-            this.registrationDatePicker.Location = new System.Drawing.Point(480, 195);
+            this.registrationDatePicker.Location = new System.Drawing.Point(481, 213);
             this.registrationDatePicker.Name = "registrationDatePicker";
             this.registrationDatePicker.Size = new System.Drawing.Size(200, 20);
             this.registrationDatePicker.TabIndex = 13;
             // 
             // birthDatePciker
             // 
-            this.birthDatePciker.Location = new System.Drawing.Point(130, 106);
+            this.birthDatePciker.Location = new System.Drawing.Point(131, 124);
             this.birthDatePciker.Name = "birthDatePciker";
             this.birthDatePciker.Size = new System.Drawing.Size(200, 20);
             this.birthDatePciker.TabIndex = 13;
@@ -638,11 +645,68 @@ namespace Lab2SharpForms
             this.objectCountStatusLabel.Size = new System.Drawing.Size(13, 17);
             this.objectCountStatusLabel.Text = "0";
             // 
+            // toolStrip1
+            // 
+            this.toolStrip1.AllowDrop = true;
+            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sortToolStripButton,
+            this.advancedSearchToolStripButton,
+            this.deleteRowToolStripButton,
+            this.closeStripButton});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(1258, 25);
+            this.toolStrip1.TabIndex = 27;
+            this.toolStrip1.Text = "toolStrip1";
+            this.toolStrip1.DragDrop += new System.Windows.Forms.DragEventHandler(this.toolStrip1_DragDrop);
+            // 
+            // sortToolStripButton
+            // 
+            this.sortToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.sortToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("sortToolStripButton.Image")));
+            this.sortToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.sortToolStripButton.Name = "sortToolStripButton";
+            this.sortToolStripButton.Size = new System.Drawing.Size(138, 22);
+            this.sortToolStripButton.Text = "Сортировать по имени";
+            this.sortToolStripButton.Click += new System.EventHandler(this.sortToolStripButton_Click);
+            // 
+            // advancedSearchToolStripButton
+            // 
+            this.advancedSearchToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.advancedSearchToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("advancedSearchToolStripButton.Image")));
+            this.advancedSearchToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.advancedSearchToolStripButton.Name = "advancedSearchToolStripButton";
+            this.advancedSearchToolStripButton.Size = new System.Drawing.Size(127, 22);
+            this.advancedSearchToolStripButton.Text = "Расширенный поиск";
+            this.advancedSearchToolStripButton.Click += new System.EventHandler(this.advancedSearchToolStripButton_Click);
+            // 
+            // deleteRowToolStripButton
+            // 
+            this.deleteRowToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.deleteRowToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("deleteRowToolStripButton.Image")));
+            this.deleteRowToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.deleteRowToolStripButton.Name = "deleteRowToolStripButton";
+            this.deleteRowToolStripButton.Size = new System.Drawing.Size(95, 22);
+            this.deleteRowToolStripButton.Text = "Удалить строку";
+            this.deleteRowToolStripButton.Click += new System.EventHandler(this.deleteRowToolStripButton_Click);
+            // 
+            // closeStripButton
+            // 
+            this.closeStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.closeStripButton.Image = ((System.Drawing.Image)(resources.GetObject("closeStripButton.Image")));
+            this.closeStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.closeStripButton.Name = "closeStripButton";
+            this.closeStripButton.Size = new System.Drawing.Size(23, 22);
+            this.closeStripButton.Text = "Скрыть";
+            this.closeStripButton.Click += new System.EventHandler(this.closeStripButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1258, 610);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.sortButton);
             this.Controls.Add(this.sortDropdownList);
@@ -697,6 +761,8 @@ namespace Lab2SharpForms
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBank)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -765,6 +831,11 @@ namespace Lab2SharpForms
         private System.Windows.Forms.ToolStripStatusLabel lastActionStatusLabel;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
         private System.Windows.Forms.ToolStripStatusLabel objectCountStatusLabel;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton sortToolStripButton;
+        private System.Windows.Forms.ToolStripButton advancedSearchToolStripButton;
+        private System.Windows.Forms.ToolStripButton deleteRowToolStripButton;
+        private System.Windows.Forms.ToolStripButton closeStripButton;
     }
 }
 
