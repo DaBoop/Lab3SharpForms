@@ -96,6 +96,8 @@ namespace Lab2SharpForms
             this.advancedSearchToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.deleteRowToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.closeStripButton = new System.Windows.Forms.ToolStripButton();
+            this.accountType = new System.Windows.Forms.ComboBox();
+            this.label16 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.accountSumNumerical)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.operationSum)).BeginInit();
             this.SMSGroupBox.SuspendLayout();
@@ -197,21 +199,23 @@ namespace Lab2SharpForms
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(372, 122);
+            this.label6.Location = new System.Drawing.Point(22, 198);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(100, 13);
             this.label6.TabIndex = 4;
             this.label6.Text = "SMS-уведомления";
+            this.label6.Visible = false;
             // 
             // onlineBanking
             // 
             this.onlineBanking.AutoSize = true;
             this.onlineBanking.Enabled = false;
-            this.onlineBanking.Location = new System.Drawing.Point(372, 170);
+            this.onlineBanking.Location = new System.Drawing.Point(22, 246);
             this.onlineBanking.Name = "onlineBanking";
             this.onlineBanking.Size = new System.Drawing.Size(90, 13);
             this.onlineBanking.TabIndex = 4;
             this.onlineBanking.Text = "Онлайн-Банкинг";
+            this.onlineBanking.Visible = false;
             // 
             // label8
             // 
@@ -311,21 +315,23 @@ namespace Lab2SharpForms
             // 
             this.SMSGroupBox.Controls.Add(this.SMSTrueRadio);
             this.SMSGroupBox.Controls.Add(this.SMSFalseRadio);
-            this.SMSGroupBox.Location = new System.Drawing.Point(481, 111);
+            this.SMSGroupBox.Location = new System.Drawing.Point(131, 187);
             this.SMSGroupBox.Name = "SMSGroupBox";
             this.SMSGroupBox.Size = new System.Drawing.Size(183, 38);
             this.SMSGroupBox.TabIndex = 11;
             this.SMSGroupBox.TabStop = false;
+            this.SMSGroupBox.Visible = false;
             // 
             // onlineBankingBox
             // 
             this.onlineBankingBox.Controls.Add(this.onlineBankingTrue);
             this.onlineBankingBox.Controls.Add(this.onlineBankingFalse);
-            this.onlineBankingBox.Location = new System.Drawing.Point(481, 159);
+            this.onlineBankingBox.Location = new System.Drawing.Point(131, 235);
             this.onlineBankingBox.Name = "onlineBankingBox";
             this.onlineBankingBox.Size = new System.Drawing.Size(183, 38);
             this.onlineBankingBox.TabIndex = 11;
             this.onlineBankingBox.TabStop = false;
+            this.onlineBankingBox.Visible = false;
             // 
             // onlineBankingTrue
             // 
@@ -701,11 +707,34 @@ namespace Lab2SharpForms
             this.closeStripButton.Text = "Скрыть";
             this.closeStripButton.Click += new System.EventHandler(this.closeStripButton_Click);
             // 
+            // accountType
+            // 
+            this.accountType.FormattingEnabled = true;
+            this.accountType.Items.AddRange(new object[] {
+            "Упрощенный",
+            "Базовый",
+            "Премиальный"});
+            this.accountType.Location = new System.Drawing.Point(481, 136);
+            this.accountType.Name = "accountType";
+            this.accountType.Size = new System.Drawing.Size(200, 21);
+            this.accountType.TabIndex = 29;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(372, 144);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(57, 13);
+            this.label16.TabIndex = 28;
+            this.label16.Text = "Тип счёта";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1258, 610);
+            this.Controls.Add(this.accountType);
+            this.Controls.Add(this.label16);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.sortButton);
@@ -836,6 +865,8 @@ namespace Lab2SharpForms
         private System.Windows.Forms.ToolStripButton advancedSearchToolStripButton;
         private System.Windows.Forms.ToolStripButton deleteRowToolStripButton;
         private System.Windows.Forms.ToolStripButton closeStripButton;
+        private System.Windows.Forms.ComboBox accountType;
+        private System.Windows.Forms.Label label16;
     }
 }
 

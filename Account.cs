@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -66,7 +68,7 @@ namespace Lab2SharpForms
         }
     }
     [Serializable]
-    public class Account
+    public class Account :IPrototype<Account>
     {
         public History AccountHistory;
         public Account() { }
@@ -116,6 +118,24 @@ namespace Lab2SharpForms
           
 
             (ID, Balance, StartDate, OnlineBanking, SMSNotification, AccountOwner, AccountHistory) = (_ID, _Balance, _StartDate, _OnlineBanking, _SMSNotification, _AccountOwner, _accountHistory);
+        }
+
+        public Account Clone()
+        {
+            return (Account) this.MemberwiseClone();
+        }
+
+        public Account DeepCopy()
+        {
+            
+            using (var stream = new MemoryStream())
+            {
+                var formatter = new BinaryFormatter();
+                formatter.Serialize(stream, this);
+                stream.Position = 0;
+                return (Account)formatter.Deserialize(stream);
+            }
+                
         }
     }
 

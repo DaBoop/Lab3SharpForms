@@ -25,6 +25,8 @@ namespace Lab2SharpForms
 
         public Form1()
         {
+            SingletonSettings.GetInstance();
+            //
             InitializeComponent();
             fileNameTextBox.Text = "bank.xml";
             searchFilterDropdownList.SelectedIndex = 0;
@@ -32,6 +34,7 @@ namespace Lab2SharpForms
             timer.Interval = 1000;
             timer.Tick += Timer_Tick;           
             timer.Start();
+
            
         }
 
@@ -221,14 +224,28 @@ namespace Lab2SharpForms
             try
             {
                 var own = new Owner(NameTextBox.Text, birthDatePciker.Value, PassportIDTextBox.Text);
-                var acc = new Account(
+                /*var acc = new Account(
                         Convert.ToInt32(accountIdTextBox.Text),
                         (int)accountSumNumerical.Value,
                         registrationDatePicker.Value,
                         onlineBankingBox.Enabled,
                         SMSGroupBox.Enabled,
                         own,
-                        history); 
+                        history); */
+                Account acc;
+                var director = new AccountBuildDirector();
+                IAccountBuilder builder;
+                
+                switch (accountType.Text)
+                {
+                    case "Базовый": builder = new BasicBuilder(); break;
+                    case "Упрощенный": builder = new ReducedBuilder(); break;
+                    case "Премиальный": builder = new PremiumBuilder(); break;
+                    default: builder = new PremiumBuilder(); break;
+
+                }
+
+                acc = director.BuildObject(builder, NameTextBox.Text, birthDatePciker.Value, PassportIDTextBox.Text, Convert.ToInt32(accountIdTextBox.Text), (int)accountSumNumerical.Value, registrationDatePicker.Value);
 
             var results = new List<ValidationResult>();
             var context = new ValidationContext(own);
@@ -260,14 +277,14 @@ namespace Lab2SharpForms
                         accountList.Add(acc);
 
                         dataGridViewBank.Rows.Add(
-                                    NameTextBox.Text,
-                                    PassportIDTextBox.Text,
-                                    birthDatePciker.Value,
-                                    Convert.ToInt32(accountIdTextBox.Text),
-                                    (int)accountSumNumerical.Value,
-                                    onlineBankingBox.Enabled,
-                                    SMSGroupBox.Enabled,
-                                     registrationDatePicker.Value
+                                    acc.AccountOwner.FullName,
+                                    acc.AccountOwner.PassportID,
+                                    acc.AccountOwner.BirthDate,
+                                    acc.ID,
+                                    acc.Balance,
+                                    acc.SMSNotification,
+                                    acc.OnlineBanking,
+                                    acc.StartDate
                                     );
                     }
                 }
@@ -461,7 +478,7 @@ namespace Lab2SharpForms
 
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void toolStripButton3_Click(object sender, EventArgs e)
