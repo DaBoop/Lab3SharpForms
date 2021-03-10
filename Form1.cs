@@ -240,61 +240,90 @@ namespace Lab2SharpForms
                 {
                     case "Базовый": builder = new BasicBuilder(); break;
                     case "Упрощенный": builder = new ReducedBuilder(); break;
-                    case "Премиальный": builder = new PremiumBuilder(); break;
+                    case "Расширенный": builder = new PremiumBuilder(); break;
                     default: builder = new PremiumBuilder(); break;
 
                 }
 
                 acc = director.BuildObject(builder, NameTextBox.Text, birthDatePciker.Value, PassportIDTextBox.Text, Convert.ToInt32(accountIdTextBox.Text), (int)accountSumNumerical.Value, registrationDatePicker.Value);
 
-            var results = new List<ValidationResult>();
-            var context = new ValidationContext(own);
-            if (!Validator.TryValidateObject(own, context, results, true))
+                if(BusinessCheck.Checked == true)
                 {
-                    foreach (ValidationResult entry in results)
-                    {
-                        resultRichTextBox.Text += entry.ErrorMessage + "\n";
-                    }
-
-                   
+                    var decorator = new BusinessAccount();
+                    decorator.SetDecorator(acc);
+                    acc = decorator;
+                    
                 }
-            else
-                { 
-                    results = new List<ValidationResult>();
-                    context = new ValidationContext(acc);
-                if (!Validator.TryValidateObject(acc, context, results, true))
+
+                if (PremiumCheck.Checked == true)
+                {
+                    var decorator = new PremiumAccount();
+                    decorator.SetDecorator(acc);
+                    acc = decorator;
+
+                }
+
+                var results = new List<ValidationResult>();
+                var context = new ValidationContext(own);
+                if (!Validator.TryValidateObject(own, context, results, true))
                     {
                         foreach (ValidationResult entry in results)
                         {
                             resultRichTextBox.Text += entry.ErrorMessage + "\n";
                         }
 
-
+                   
                     }
                 else
-                    {
+                    { 
+                        results = new List<ValidationResult>();
+                        context = new ValidationContext(acc);
+                    if (!Validator.TryValidateObject(acc, context, results, true))
+                        {
+                            foreach (ValidationResult entry in results)
+                            {
+                                resultRichTextBox.Text += entry.ErrorMessage + "\n";
+                            }
 
-                        accountList.Add(acc);
 
-                        dataGridViewBank.Rows.Add(
-                                    acc.AccountOwner.FullName,
-                                    acc.AccountOwner.PassportID,
-                                    acc.AccountOwner.BirthDate,
-                                    acc.ID,
-                                    acc.Balance,
-                                    acc.SMSNotification,
-                                    acc.OnlineBanking,
-                                    acc.StartDate
-                                    );
+                        }
+                    else
+                        {
+
+                            accountList.Add(acc);
+
+                            dataGridViewBank.Rows.Add(
+                                        acc.AccountOwner.FullName,
+                                        acc.AccountOwner.PassportID,
+                                        acc.AccountOwner.BirthDate,
+                                        acc.ID,
+                                        acc.Balance,
+                                        acc.SMSNotification,
+                                        acc.OnlineBanking,
+                                        acc.StartDate
+                                        );
+                        }
                     }
+
+                if (acc is PremiumAccount)
+                {
+                    var premiumAcc = acc as PremiumAccount;
+                    if (premiumAcc.HasPremiumFeatures)
+                        MessageBox.Show("Поздравляем с приобритением премиум-подписки, вы великолепны!!111!");
                 }
 
-            }
-            catch(Exception excep)
-            {
-                resultRichTextBox.Text = "Не все поля заполнены";
-            }
 
+                if (acc is BusinessAccount)
+                {
+                    var business = acc as BusinessAccount;
+                    if (business.HasBusinessDiscount)
+                        MessageBox.Show("Поздравляем с получением скидки для бизнес-партнеров!!111!");
+                }
+            }
+                catch(Exception excep)
+                {
+                    resultRichTextBox.Text = "Не все поля заполнены";
+                }
 
             //var lastRowIndex = dataGridViewBank.Rows.GetLastRow(DataGridViewElementStates.None);
 
@@ -517,6 +546,38 @@ namespace Lab2SharpForms
             toolStrip1.Dock = DockStyle.None;
             toolStrip1.Top = e.Y;
             toolStrip1.Left = e.X;
+        }
+
+        private void rollBackOperationButton_Click(object sender, EventArgs e)
+        {
+            accountList[selectedRowIndex].RestoreState();
+
+            try
+            {
+                dataGridViewBank.Rows.Clear();
+                //accountList = (List<Account>)Deserialize(fileNameTextBox.Text, typeof(List<Account>));
+                foreach (Account entry in accountList)
+                {
+                    dataGridViewBank.Rows.Add(
+                    entry.AccountOwner.FullName,
+                    entry.AccountOwner.PassportID,
+                    entry.AccountOwner.BirthDate,
+                    entry.ID,
+                    entry.Balance,
+                    entry.SMSNotification,
+                    entry.OnlineBanking,
+                    entry.StartDate
+                    );
+                }
+                //resultRichTextBox.Text = "Счет успешно загружен:\n";
+                //    + $"===Владелец===\nФИО: {acc.AccountOwner.FullName}\nНомер паспорта: {acc.AccountOwner.PassportID}\nДата рождения: {acc.AccountOwner.BirthDate.ToString("d")}\n"
+                //    + $"===Счет====\nНомер счета: {acc.ID}\nБаланс: {acc.Balance}\nОнлайн-Банкинг: {acc.OnlineBanking}\nСМС-Уведомления: {acc.SMSNotification}\nДата Создания: {acc.StartDate.ToString("d")}\n";
+                //selectedRowIndex = -1;
+            }
+            catch (Exception excep)
+            {
+                resultRichTextBox.Text = "" + excep.Message;
+            }
         }
     }
 

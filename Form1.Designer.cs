@@ -98,6 +98,11 @@ namespace Lab2SharpForms
             this.closeStripButton = new System.Windows.Forms.ToolStripButton();
             this.accountType = new System.Windows.Forms.ComboBox();
             this.label16 = new System.Windows.Forms.Label();
+            this.AccountFeatures = new System.Windows.Forms.Panel();
+            this.label17 = new System.Windows.Forms.Label();
+            this.BusinessCheck = new System.Windows.Forms.CheckBox();
+            this.PremiumCheck = new System.Windows.Forms.CheckBox();
+            this.rollBackOperationButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.accountSumNumerical)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.operationSum)).BeginInit();
             this.SMSGroupBox.SuspendLayout();
@@ -105,6 +110,7 @@ namespace Lab2SharpForms
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBank)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
+            this.AccountFeatures.SuspendLayout();
             this.SuspendLayout();
             // 
             // NameTextBox
@@ -220,7 +226,7 @@ namespace Lab2SharpForms
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(372, 220);
+            this.label8.Location = new System.Drawing.Point(372, 260);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(84, 13);
             this.label8.TabIndex = 4;
@@ -406,7 +412,7 @@ namespace Lab2SharpForms
             // 
             // registrationDatePicker
             // 
-            this.registrationDatePicker.Location = new System.Drawing.Point(481, 213);
+            this.registrationDatePicker.Location = new System.Drawing.Point(481, 253);
             this.registrationDatePicker.Name = "registrationDatePicker";
             this.registrationDatePicker.Size = new System.Drawing.Size(200, 20);
             this.registrationDatePicker.TabIndex = 13;
@@ -713,7 +719,7 @@ namespace Lab2SharpForms
             this.accountType.Items.AddRange(new object[] {
             "Упрощенный",
             "Базовый",
-            "Премиальный"});
+            "Расширенный"});
             this.accountType.Location = new System.Drawing.Point(481, 136);
             this.accountType.Name = "accountType";
             this.accountType.Size = new System.Drawing.Size(200, 21);
@@ -728,11 +734,61 @@ namespace Lab2SharpForms
             this.label16.TabIndex = 28;
             this.label16.Text = "Тип счёта";
             // 
+            // AccountFeatures
+            // 
+            this.AccountFeatures.Controls.Add(this.PremiumCheck);
+            this.AccountFeatures.Controls.Add(this.BusinessCheck);
+            this.AccountFeatures.Location = new System.Drawing.Point(481, 174);
+            this.AccountFeatures.Name = "AccountFeatures";
+            this.AccountFeatures.Size = new System.Drawing.Size(200, 64);
+            this.AccountFeatures.TabIndex = 30;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(372, 174);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(84, 13);
+            this.label17.TabIndex = 31;
+            this.label17.Text = "Функции счёта";
+            // 
+            // BusinessCheck
+            // 
+            this.BusinessCheck.AutoSize = true;
+            this.BusinessCheck.Location = new System.Drawing.Point(17, 11);
+            this.BusinessCheck.Name = "BusinessCheck";
+            this.BusinessCheck.Size = new System.Drawing.Size(106, 17);
+            this.BusinessCheck.TabIndex = 0;
+            this.BusinessCheck.Text = "Бизнес аккаунт";
+            this.BusinessCheck.UseVisualStyleBackColor = true;
+            // 
+            // PremiumCheck
+            // 
+            this.PremiumCheck.AutoSize = true;
+            this.PremiumCheck.Location = new System.Drawing.Point(17, 34);
+            this.PremiumCheck.Name = "PremiumCheck";
+            this.PremiumCheck.Size = new System.Drawing.Size(116, 17);
+            this.PremiumCheck.TabIndex = 0;
+            this.PremiumCheck.Text = "Премиум аккаунт";
+            this.PremiumCheck.UseVisualStyleBackColor = true;
+            // 
+            // rollBackOperationButton
+            // 
+            this.rollBackOperationButton.Location = new System.Drawing.Point(760, 235);
+            this.rollBackOperationButton.Name = "rollBackOperationButton";
+            this.rollBackOperationButton.Size = new System.Drawing.Size(126, 39);
+            this.rollBackOperationButton.TabIndex = 9;
+            this.rollBackOperationButton.Text = "Отменить операцию";
+            this.rollBackOperationButton.UseVisualStyleBackColor = true;
+            this.rollBackOperationButton.Click += new System.EventHandler(this.rollBackOperationButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1258, 610);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.AccountFeatures);
             this.Controls.Add(this.accountType);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.toolStrip1);
@@ -759,6 +815,7 @@ namespace Lab2SharpForms
             this.Controls.Add(this.accountIdTextBox);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.LoadButton);
+            this.Controls.Add(this.rollBackOperationButton);
             this.Controls.Add(this.commitOperationButton);
             this.Controls.Add(this.operationTypeList);
             this.Controls.Add(this.operationSum);
@@ -792,6 +849,8 @@ namespace Lab2SharpForms
             this.statusStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.AccountFeatures.ResumeLayout(false);
+            this.AccountFeatures.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -867,6 +926,11 @@ namespace Lab2SharpForms
         private System.Windows.Forms.ToolStripButton closeStripButton;
         private System.Windows.Forms.ComboBox accountType;
         private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Panel AccountFeatures;
+        private System.Windows.Forms.CheckBox PremiumCheck;
+        private System.Windows.Forms.CheckBox BusinessCheck;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Button rollBackOperationButton;
     }
 }
 

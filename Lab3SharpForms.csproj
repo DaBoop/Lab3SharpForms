@@ -50,7 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account Decorator.cs" />
     <Compile Include="Account.cs" />
+    <Compile Include="AccSnapshots.cs" />
     <Compile Include="AdvancedSearchForm.cs">
       <SubType>Form</SubType>
     </Compile>

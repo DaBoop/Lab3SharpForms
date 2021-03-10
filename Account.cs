@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 namespace Lab2SharpForms
 {
+    
+
     [Serializable]
     public class Owner
     {
@@ -68,10 +70,17 @@ namespace Lab2SharpForms
         }
     }
     [Serializable]
-    public class Account :IPrototype<Account>
+     public partial class Account :IPrototype<Account>
     {
+        event EventHandler BalanceChanged;
+
+        
+
         public History AccountHistory;
-        public Account() { }
+        public Account() 
+        { 
+            BalanceChanged += onBalanceChanged;
+        }
         [Required]
         //[StringLength(50, MinimumLength = 3, ErrorMessage = "Недопустимая длина имени")]
         public Owner AccountOwner { get; set; }
@@ -98,6 +107,8 @@ namespace Lab2SharpForms
             get => balance;
             set
             {
+                BalanceChanged(null, null);
+
                 // if (value < 0)
                 //     throw new ArgumentNullException("Balance can't be negative");
                 // else balance = value;
@@ -115,8 +126,8 @@ namespace Lab2SharpForms
         public Account(int _ID, int _Balance, DateTime _StartDate, bool _OnlineBanking = false, bool _SMSNotification = false, Owner _AccountOwner = null, History _accountHistory = null)
         {
 
-          
 
+            BalanceChanged += onBalanceChanged;
             (ID, Balance, StartDate, OnlineBanking, SMSNotification, AccountOwner, AccountHistory) = (_ID, _Balance, _StartDate, _OnlineBanking, _SMSNotification, _AccountOwner, _accountHistory);
         }
 
@@ -133,7 +144,9 @@ namespace Lab2SharpForms
                 var formatter = new BinaryFormatter();
                 formatter.Serialize(stream, this);
                 stream.Position = 0;
-                return (Account)formatter.Deserialize(stream);
+                var deserialized = (Account)formatter.Deserialize(stream);
+                deserialized.AccountOwner = this.AccountOwner;
+                return deserialized;
             }
                 
         }
